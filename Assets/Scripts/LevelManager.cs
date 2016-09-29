@@ -8,9 +8,9 @@ public class LevelManager : MonoBehaviour {
 
     void Start()
     {
-        if (autoLoadNextLevelAfter == 0)
+        if (autoLoadNextLevelAfter <= 0)
         {
-            Debug.Log("Auto level load disabled!");
+            Debug.Log("Auto level load disabled, use positive value");
         } else
         {
             Invoke("LoadNextLevel", autoLoadNextLevelAfter);
