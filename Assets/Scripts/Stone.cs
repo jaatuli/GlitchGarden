@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Defender : MonoBehaviour {
+public class Stone : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -10,10 +10,6 @@ public class Defender : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-    }
-
-    void OnTriggerEnter2D()
-    {
-    }
+	
+	}
 }
