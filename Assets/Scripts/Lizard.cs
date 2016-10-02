@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Attacker))]
+[RequireComponent(typeof(Animator))]
 public class Lizard : MonoBehaviour {
 
     private Animator anim;
