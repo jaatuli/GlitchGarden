@@ -22,14 +22,16 @@ public class Stone : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-
-        attacker = collider.gameObject;
-
-        if (!attacker.GetComponent<Attacker>())
+        // Check if not attacker
+        if (!collider.gameObject.GetComponent<Attacker>())
         {
             return;
         }
 
+        // Assign current attacker
+        attacker = collider.gameObject;
+
+        // Set attacked animation
         anim.SetBool("isAttacked", true);        
         Debug.Log(name + " is attacked by " + attacker);
     }
