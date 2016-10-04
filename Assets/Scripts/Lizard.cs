@@ -33,7 +33,7 @@ public class Lizard : MonoBehaviour {
         
         anim.SetBool("isAttacking", true);
         attacker.Attack(collidedObject);
-        Debug.Log(name + " is attacking " + collidedObject);
+        //Debug.Log(name + " is attacking " + collidedObject);
 
     }
 }

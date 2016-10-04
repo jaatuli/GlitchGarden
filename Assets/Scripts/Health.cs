@@ -20,12 +20,12 @@ public class Health : MonoBehaviour {
     {
         health -= damage;
 
-        Debug.Log(name + " took " + damage + " damage");
+        //Debug.Log(name + " took " + damage + " damage");
 
         if (health <= 0)
         {
             //Die state
-            Debug.Log(name + " killed");
+            //Debug.Log(name + " killed");
             KillObject();
         }
     }

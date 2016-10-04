@@ -3,18 +3,20 @@ using System.Collections;
 
 public class DefenderSpawn : MonoBehaviour {
 
-    public GameObject defenderPrefab;
-
-    private DefenderSpawn[] buttonArray;
+    public GameObject defenderPrefab;    
     public static GameObject selectedDefender;
 
-	// Use this for initialization
-	void Start () {
+    private DefenderSpawn[] buttonArray;
+    
+
+    // Use this for initialization
+    void Start () {
         buttonArray = GameObject.FindObjectsOfType<DefenderSpawn>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 

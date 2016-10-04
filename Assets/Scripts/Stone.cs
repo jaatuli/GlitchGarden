@@ -28,11 +28,16 @@ public class Stone : MonoBehaviour {
             return;
         }
 
+        // Check if fox which jumps over
+        if (collider.gameObject.GetComponent<Fox>()) {
+            return;
+        }
+
         // Assign current attacker
         attacker = collider.gameObject;
 
         // Set attacked animation
         anim.SetBool("isAttacked", true);        
-        Debug.Log(name + " is attacked by " + attacker);
+        //Debug.Log(name + " is attacked by " + attacker);
     }
 }

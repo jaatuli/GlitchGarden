@@ -32,14 +32,14 @@ public class Fox : MonoBehaviour {
         if (collidedObject.GetComponent<Stone>())
         {
             anim.SetTrigger("jumpTrigger");
-            Debug.Log(name + " jumped over " + collidedObject);
+            //Debug.Log(name + " jumped over " + collidedObject);
 
         }
         else
         {
             anim.SetBool("isAttacking", true);
             attacker.Attack(collidedObject);
-            Debug.Log(name + " is attacking " + collidedObject);
+            //Debug.Log(name + " is attacking " + collidedObject);
         }
 
         

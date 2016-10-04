@@ -5,6 +5,8 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class Attacker : MonoBehaviour {
 
+    [Tooltip("Average number of seconds between appearences")]
+    public float seenEverySeconds;
     private float currentSpeed;
     private GameObject currentTarget;
     private Animator anim;
