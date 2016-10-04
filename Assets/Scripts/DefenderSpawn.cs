@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DefenderSpawn : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class DefenderSpawn : MonoBehaviour {
     public bool defaultDefender = false;
 
     private DefenderSpawn[] buttonArray;
+    private Text costText;
     
 
     // Use this for initialization
@@ -23,6 +25,10 @@ public class DefenderSpawn : MonoBehaviour {
 
             GetComponent<SpriteRenderer>().color = Color.white;
         }
+
+        costText = GetComponentInChildren<Text>();
+
+        costText.text = defenderPrefab.GetComponent<Defender>().starCost.ToString();
 
     }
 
