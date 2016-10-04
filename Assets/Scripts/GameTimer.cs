@@ -34,7 +34,9 @@ public class GameTimer : MonoBehaviour {
             // Disable lose collider
             GameObject.FindObjectOfType<LoseCollider>().gameObject.SetActive(false);
 
-            musicManager.StopPlaying();
+            if (musicManager) {
+                musicManager.StopPlaying();
+            }            
             audioSource.Play();
             winLabel.SetActive(true);
             Invoke("LoadNextLevel", audioSource.clip.length);
