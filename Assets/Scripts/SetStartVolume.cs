@@ -9,13 +9,14 @@ public class SetStartVolume : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        musicManager = GameObject.FindObjectOfType<MusicManager>();
-        musicManager.SetVolume(PlayerPrefsManager.GetMasterVolume());
-
         // Set default settings if player has not played before
         if (PlayerPrefsManager.GetHasPlayed() == 0) {
             OptionsController.SetInitialDefaults();
+            PlayerPrefsManager.SetHasPlayed();
         }
+
+        musicManager = GameObject.FindObjectOfType<MusicManager>();
+        musicManager.SetVolume(PlayerPrefsManager.GetMasterVolume());
     }	
 
 }
