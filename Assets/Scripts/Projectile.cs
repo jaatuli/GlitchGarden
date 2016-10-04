@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour {
 
     [Range (0f, 5f)]
     public float speed = 1;
-    [Range(0f, 50f)]
+    [Range(0f, 100f)]
     public float damage = 10;
 
 	// Use this for initialization

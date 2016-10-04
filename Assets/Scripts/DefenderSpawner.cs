@@ -30,7 +30,7 @@ public class DefenderSpawner : MonoBehaviour {
             int currentDefenderCost = DefenderSpawn.selectedDefender.GetComponent<Defender>().starCost;
 
             if (starDisplay.UseStars(currentDefenderCost)) {
-                GameObject newDefender = Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform) as GameObject;
+                Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform);
             } else {
                 Debug.Log("Not enough stars!");
             }

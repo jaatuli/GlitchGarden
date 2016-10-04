@@ -5,6 +5,7 @@ public class DefenderSpawn : MonoBehaviour {
 
     public GameObject defenderPrefab;    
     public static GameObject selectedDefender;
+    public bool defaultDefender = false;
 
     private DefenderSpawn[] buttonArray;
     
@@ -12,6 +13,16 @@ public class DefenderSpawn : MonoBehaviour {
     // Use this for initialization
     void Start () {
         buttonArray = GameObject.FindObjectsOfType<DefenderSpawn>();
+        
+        if (defaultDefender) {
+            selectedDefender = defenderPrefab;
+
+            foreach (DefenderSpawn thisButton in buttonArray) {
+                thisButton.GetComponent<SpriteRenderer>().color = Color.black;
+            }
+
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
 
     }
 
