@@ -11,10 +11,11 @@ public class SetStartVolume : MonoBehaviour {
 
         musicManager = GameObject.FindObjectOfType<MusicManager>();
         musicManager.SetVolume(PlayerPrefsManager.GetMasterVolume());
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+        // Set default settings if player has not played before
+        if (PlayerPrefsManager.GetHasPlayed() == 0) {
+            OptionsController.SetInitialDefaults();
+        }
+    }	
+
 }

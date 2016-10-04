@@ -36,5 +36,11 @@ public class OptionsController : MonoBehaviour {
     {
         volumeSlider.value = 0.8f;
         difficultySlider.value = 2f;
+
+    }
+
+    public static void SetInitialDefaults() {
+        PlayerPrefsManager.SetMasterVolume(0.8f);
+        PlayerPrefsManager.SetDifficulty(2f);
     }
 }
