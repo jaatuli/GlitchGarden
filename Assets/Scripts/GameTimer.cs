@@ -11,13 +11,15 @@ public class GameTimer : MonoBehaviour {
     private AudioSource audioSource;
     private LevelManager levelManager;    
     private bool isEndOfLevel = false;
+    private MusicManager musicManager;
 
     // Use this for initialization
     void Start() {
         slider = GetComponent<Slider>();
         audioSource = GetComponent<AudioSource>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
-
+        musicManager = GameObject.FindObjectOfType<MusicManager>();
+        
         winLabel.SetActive(false);     
         
     }
@@ -31,7 +33,8 @@ public class GameTimer : MonoBehaviour {
 
             // Disable lose collider
             GameObject.FindObjectOfType<LoseCollider>().gameObject.SetActive(false);
-            
+
+            musicManager.StopPlaying();
             audioSource.Play();
             winLabel.SetActive(true);
             Invoke("LoadNextLevel", audioSource.clip.length);
