@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+using System.Collections.Generic;
 
 public class GameTimer : MonoBehaviour {
 
@@ -40,6 +42,15 @@ public class GameTimer : MonoBehaviour {
             audioSource.Play();
             winLabel.SetActive(true);
             Invoke("LoadNextLevel", audioSource.clip.length);
+
+            // Analytics
+
+            int starCount = GameObject.FindObjectOfType<StarDisplay>().starCount;
+
+            Analytics.CustomEvent("levelEnd", new Dictionary<string, object> {
+                { "stars", starCount },
+
+            });
         }
         	
 	}
