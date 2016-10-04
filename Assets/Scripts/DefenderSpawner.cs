@@ -6,9 +6,11 @@ public class DefenderSpawner : MonoBehaviour {
     public Camera myCamera;
 
     private GameObject defenderParent;
+    private StarDisplay starDisplay;
 
     // Use this for initialization
     void Start () {
+        starDisplay = GameObject.FindObjectOfType<StarDisplay>();
         defenderParent = GameObject.Find("Defenders");
 
         if (!defenderParent) {
@@ -22,9 +24,16 @@ public class DefenderSpawner : MonoBehaviour {
         Vector2 gridPos = SnapToGrid(rawPos);
 
         Debug.Log("Click position: " + rawPos);
-
+        
         if (DefenderSpawn.selectedDefender) {
-            GameObject newDefender = Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform) as GameObject;
+
+            int currentDefenderCost = DefenderSpawn.selectedDefender.GetComponent<Defender>().starCost;
+
+            if (starDisplay.UseStars(currentDefenderCost)) {
+                GameObject newDefender = Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform) as GameObject;
+            } else {
+                Debug.Log("Not enough stars!");
+            }
         } else {
             Debug.Log("Select defender to spawn");
         }

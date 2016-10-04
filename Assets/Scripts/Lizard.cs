@@ -24,8 +24,10 @@ public class Lizard : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collider)
     {
 
+        // Get collided gameobject
         GameObject collidedObject = collider.gameObject;
 
+        // If not a defender, return
         if (!collidedObject.GetComponent<Defender>())
         {
             return;
