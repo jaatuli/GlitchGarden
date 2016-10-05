@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class Projectile : MonoBehaviour {
 
     [Range (0f, 5f)]
@@ -8,9 +9,11 @@ public class Projectile : MonoBehaviour {
     [Range(0f, 100f)]
     public float damage = 10;
 
+    private AudioSource hitSound;
+
 	// Use this for initialization
 	void Start () {
-	
+        hitSound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -31,7 +34,8 @@ public class Projectile : MonoBehaviour {
         if (attacker && health)
         {
             health.DealDamage(damage);
-            Destroy(gameObject);
+            hitSound.Play();
+            Destroy(gameObject,0.1f);
         }
     }
 }
