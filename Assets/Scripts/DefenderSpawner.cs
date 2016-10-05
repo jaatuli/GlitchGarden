@@ -7,11 +7,13 @@ public class DefenderSpawner : MonoBehaviour {
 
     private GameObject defenderParent;
     private StarDisplay starDisplay;
+    private AudioSource spawnSound;
 
     // Use this for initialization
     void Start () {
         starDisplay = GameObject.FindObjectOfType<StarDisplay>();
         defenderParent = GameObject.Find("Defenders");
+        spawnSound = GetComponent<AudioSource>();
 
         if (!defenderParent) {
             defenderParent = new GameObject("Defenders");
@@ -31,6 +33,7 @@ public class DefenderSpawner : MonoBehaviour {
 
             if (starDisplay.UseStars(currentDefenderCost)) {
                 Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform);
+                spawnSound.Play();
             } else {
                 Debug.Log("Not enough stars!");
             }

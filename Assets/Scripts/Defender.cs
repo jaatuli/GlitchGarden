@@ -5,9 +5,13 @@ public class Defender : MonoBehaviour {
     private StarDisplay starDisplay;
     public int starCost;
 
+    private AudioSource starSound;
+
 	// Use this for initialization
 	void Start () {
         starDisplay = GameObject.FindObjectOfType<StarDisplay>();
+
+        starSound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -18,6 +22,7 @@ public class Defender : MonoBehaviour {
     public void AddStars (int amount) {
 
         starDisplay.AddStars(amount);
+        starSound.Play();
     }
 
 
