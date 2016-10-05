@@ -11,6 +11,7 @@ public class LoseCollider : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D() {
+        Analytic.LevelEndAnalytics(false);
         levelManager.LoadLevel("03b_Lose");
     }
 }

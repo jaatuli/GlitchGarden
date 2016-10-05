@@ -30,7 +30,7 @@ public class GameTimer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        slider.value = Time.timeSinceLevelLoad / levelSeconds;
+        slider.value = GetLevelProgression();
 
         if (Time.timeSinceLevelLoad >= levelSeconds && !isEndOfLevel) {
             isEndOfLevel = true;
@@ -45,17 +45,15 @@ public class GameTimer : MonoBehaviour {
             winLabel.SetActive(true);
             Invoke("LoadNextLevel", audioSource.clip.length);
 
-            // Analytics
+            Analytic.LevelEndAnalytics(true);
 
-            int starCount = GameObject.FindObjectOfType<StarDisplay>().starCount;
-
-            Analytics.CustomEvent("levelEnd", new Dictionary<string, object> {
-                { "stars", starCount },
-
-            });
         }
         	
 	}
+
+    public float GetLevelProgression() {
+        return Time.timeSinceLevelLoad / levelSeconds;
+    }
 
     void LoadNextLevel() {
         levelManager.LoadNextLevel();

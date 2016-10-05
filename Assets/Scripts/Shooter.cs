@@ -7,13 +7,13 @@ public class Shooter : MonoBehaviour {
     public Vector3 gunPosition;
     private GameObject projectilesParent;
     private Animator anim;
-    private AttackerSpawner myLaneSpawner;
+    private AttackerSpawner[] mySpawners;
 
 	// Use this for initialization
 	void Start () {
         projectilesParent = GameObject.Find("Projectiles");
         anim = GetComponent<Animator>();
-        SetMyLaneSpawner();
+        mySpawners = GameObject.FindObjectsOfType<AttackerSpawner>();
 
         if (!projectilesParent) {
             projectilesParent = new GameObject("Projectiles");
@@ -30,30 +30,17 @@ public class Shooter : MonoBehaviour {
 	}
 
     bool IsAttackerInLane () {
-        if (myLaneSpawner.transform.childCount <= 0) {
-            return false;
-        }
 
-        foreach (Transform attacker in myLaneSpawner.transform) {
-            if (attacker.transform.position.x > transform.position.x) {
-                return true;
+        foreach (AttackerSpawner thisSpawner in mySpawners) {
+
+            foreach (Transform attacker in thisSpawner.transform) {
+                if (attacker.transform.position.x > transform.position.x && attacker.transform.position.y == transform.position.y) {
+                    return true;
+                }
             }
         }
 
         return false;
-    }
-
-    void SetMyLaneSpawner () {
-        AttackerSpawner[] spawners = GameObject.FindObjectsOfType<AttackerSpawner>();
-
-        foreach (AttackerSpawner thisSpawner in spawners) {
-            if (thisSpawner.transform.position.y == transform.position.y) {
-                myLaneSpawner = thisSpawner;
-                return;
-            }
-        }
-
-        Debug.LogError(name + " can't find spawner in lane");
     }
 
     private void Fire()

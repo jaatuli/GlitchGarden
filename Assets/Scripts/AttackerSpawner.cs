@@ -4,34 +4,47 @@ using System.Collections;
 public class AttackerSpawner : MonoBehaviour {
 
     public GameObject[] attackerPrefabArray;
+    [Range(0f,5f)]
+    public int lanesToUse;
+    public Vector2 firstLanePosition = new Vector2(12f, 5f);
+    [Range(0f,1f)]
+    public float startSpawnModifier = 0.2f;
+    public float levelSpawnDelay = 5f;
+   
+    public float levelProgression;
+
+    public float timeToSpawn;
+    private GameTimer gameTimer;
 
 	// Use this for initialization
 	void Start () {
+
+        gameTimer = GameObject.FindObjectOfType<GameTimer>();
+
+        timeToSpawn = levelSpawnDelay;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    foreach (GameObject thisAttacker in attackerPrefabArray) {
-            if (isTimeToSpawn (thisAttacker)) {
-                Spawn(thisAttacker);
-            }
+
+
+        int attackerIndex = Random.Range(0, attackerPrefabArray.Length);
+
+        if (isTimeToSpawn()) {
+            Spawn(attackerPrefabArray[attackerIndex]);
         }
+        
 	}
 
-    bool isTimeToSpawn(GameObject attackerGameObject) {
-        Attacker attacker = attackerGameObject.GetComponent<Attacker>();
+    bool isTimeToSpawn() {
 
-        float meanSpawnDelay = attacker.seenEverySeconds;
-        float spawnsPerSeconds = 1 / meanSpawnDelay;
+        levelProgression = startSpawnModifier + (gameTimer.GetLevelProgression() * (1 - startSpawnModifier));
 
-        if (Time.deltaTime > meanSpawnDelay) {
-            Debug.LogWarning("Spawn rate capped by frame rate");
-        }
+        timeToSpawn -= Time.deltaTime * PlayerPrefsManager.GetDifficulty() * levelProgression;
 
-        float threshold = spawnsPerSeconds * Time.deltaTime / 5;
-
-        if (Random.value < threshold) {
+        if (timeToSpawn < 0) {
+            timeToSpawn = levelSpawnDelay;
             return true;
         } else {
             return false;
@@ -42,6 +55,11 @@ public class AttackerSpawner : MonoBehaviour {
     void Spawn(GameObject myGameObject) {
         GameObject myAttacker = Instantiate(myGameObject) as GameObject;
         myAttacker.transform.parent = transform;
-        myAttacker.transform.position = transform.position;
+
+        // Make random lane position starting from top
+        float randomLane = Random.Range(0, lanesToUse);
+        Vector2 randomPosition = new Vector2(firstLanePosition.x, firstLanePosition.y - randomLane);
+
+        myAttacker.transform.position = randomPosition;
     }
 }
