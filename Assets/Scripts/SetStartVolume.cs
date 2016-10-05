@@ -13,8 +13,7 @@ public class SetStartVolume : MonoBehaviour {
 
         // Set default settings if player has not played before
         if (PlayerPrefsManager.GetHasPlayed() == 0) {
-            OptionsController.SetInitialDefaults();
-            PlayerPrefsManager.SetHasPlayed();
+            OptionsController.SetInitialDefaults();            
         }
 
         musicManager = GameObject.FindObjectOfType<MusicManager>();

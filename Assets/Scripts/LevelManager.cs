@@ -46,6 +46,7 @@ public class LevelManager : MonoBehaviour {
             LoadLevel("02_Level_02");
         } else {
             Debug.Log("No levels unlocked, starting from begining");
+            PlayerPrefsManager.SetHasPlayed();
             LoadLevel("02_Level_01");
         }
 
