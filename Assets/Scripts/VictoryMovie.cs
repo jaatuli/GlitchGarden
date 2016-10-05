@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class VictoryMovie : MonoBehaviour {
 
-    public MovieTexture movie;    
+    //public MovieTexture movie;    
     private AudioSource audioSource;
     private GameObject image;
 
@@ -20,7 +20,7 @@ public class VictoryMovie : MonoBehaviour {
                 Handheld.PlayFullScreenMovie("Congratulations.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
             }
             
-            if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) { 
+            /* if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) { 
             
                 //Init
                 audioSource = GetComponent<AudioSource>();
@@ -33,15 +33,15 @@ public class VictoryMovie : MonoBehaviour {
 
                 
                 
-            }
+            }*/
         }
 
     }
 
-    void Update() {
+    /* void Update() {
 
         if (!movie.isPlaying) {
             image.SetActive(false);
         }
-    }
+    }*/
 }
