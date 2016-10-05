@@ -7,8 +7,8 @@ using System.Collections.Generic;
 public class GameTimer : MonoBehaviour {
 
     public float levelSeconds = 120;
-    public GameObject winLabel;
 
+    private GameObject winLabel;
     private Slider slider;
     private AudioSource audioSource;
     private LevelManager levelManager;    
@@ -21,7 +21,9 @@ public class GameTimer : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         musicManager = GameObject.FindObjectOfType<MusicManager>();
-        
+
+        winLabel = GameObject.Find("WinCanvas");
+
         winLabel.SetActive(false);     
         
     }
