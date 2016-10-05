@@ -36,6 +36,7 @@ public class OptionsController : MonoBehaviour {
     {
         volumeSlider.value = 0.8f;
         difficultySlider.value = 2f;
+        PlayerPrefsManager.ResetLevelUnlocks();
 
     }
 

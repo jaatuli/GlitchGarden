@@ -33,29 +33,48 @@ public class GameTimer : MonoBehaviour {
         slider.value = GetLevelProgression();
 
         if (Time.timeSinceLevelLoad >= levelSeconds && !isEndOfLevel) {
-            isEndOfLevel = true;
 
-            // Disable lose collider
-            GameObject.FindObjectOfType<LoseCollider>().gameObject.SetActive(false);
-
-            if (musicManager) {
-                musicManager.StopPlaying();
-            }            
-            audioSource.Play();
-            winLabel.SetActive(true);
-            Invoke("LoadNextLevel", audioSource.clip.length);
-
+            HandleWinCondition();
             Analytic.LevelEndAnalytics(true);
 
         }
         	
 	}
 
+    void HandleWinCondition() {
+        isEndOfLevel = true;
+
+        // Disable lose collider
+        GameObject.FindObjectOfType<LoseCollider>().gameObject.SetActive(false);
+
+        if (musicManager) {
+            musicManager.StopPlaying();
+        }
+        audioSource.Play();
+        winLabel.SetActive(true);
+        PlayerPrefsManager.UnlockLevel(levelManager.GetCurrentLevel() - 2);
+        Invoke("LoadNextLevel", audioSource.clip.length);
+        DestroyAllGameObjects();
+
+    }
+
+    void DestroyAllGameObjects() {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("destroyOnWin");
+        AttackerSpawner spawner = GameObject.FindObjectOfType<AttackerSpawner>();
+
+        spawner.gameObject.SetActive(false);
+
+        foreach (GameObject thisObject in objects) {
+            Destroy(thisObject);
+        }
+    }
+
     public float GetLevelProgression() {
         return Time.timeSinceLevelLoad / levelSeconds;
     }
 
     void LoadNextLevel() {
+        
         levelManager.LoadNextLevel();
     }
 }
