@@ -11,6 +11,10 @@ public class DefenderSpawner : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        // Never sleep screen during play
+        Screen.sleepTimeout = 0;        
+
         starDisplay = GameObject.FindObjectOfType<StarDisplay>();
         defenderParent = GameObject.Find("Defenders");
         spawnSound = GetComponent<AudioSource>();

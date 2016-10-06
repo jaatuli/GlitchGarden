@@ -2,18 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(AudioSource))]
 public class VictoryMovie : MonoBehaviour {
 
     //public MovieTexture movie;    
-    private AudioSource audioSource;
-    private GameObject image;
+    private AudioSource audioSource;    
 
     // Use this for initialization
     void Start() {
-
-        image = GameObject.Find("Movie");
-
+        
         if (PlayerPrefsManager.GetDifficulty() == 3) {
 
             if (Application.platform == RuntimePlatform.Android) {
@@ -29,9 +25,7 @@ public class VictoryMovie : MonoBehaviour {
                 audioSource.clip = movie.audioClip;
 
                 movie.Play();
-                audioSource.Play();
-
-                
+                audioSource.Play();                
                 
             }*/
         }
