@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class LevelManager : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class LevelManager : MonoBehaviour {
             //Debug.Log("Auto level load disabled, use positive value");
         }
         else {
-            Invoke("LoadNextLevel", autoLoadNextLevelAfter);
+            Invoke("LoadMenu", autoLoadNextLevelAfter);
         }
     }
 
@@ -20,12 +21,27 @@ public class LevelManager : MonoBehaviour {
         SceneManager.LoadScene(name);
     }
 
+    public void LoadMenu() {
+        SceneManager.LoadScene("01a_Start");
+    }
+
     public void QuitRequest() {
         Debug.Log("Quit requested");
         Application.Quit();
     }
 
     public void LoadNextLevel() {
+        if (Advertisement.IsReady()) {
+            Advertisement.Show();
+            StartCoroutine(ShowAd());
+        } else {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+    }
+
+    IEnumerator ShowAd() {
+        yield return new WaitWhile(() => Advertisement.isShowing);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
