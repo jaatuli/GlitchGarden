@@ -31,13 +31,14 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void LoadNextLevel() {
+        PlayerPrefsManager.SetHasPlayed();
+
         if (Advertisement.IsReady()) {
             Advertisement.Show();
             StartCoroutine(ShowAd());
         } else {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-
     }
 
     IEnumerator ShowAd() {
@@ -61,8 +62,7 @@ public class LevelManager : MonoBehaviour {
             Debug.Log("Level 1 unlocked, starting from level 2");
             LoadLevel("02_Level_02");
         } else {
-            Debug.Log("No levels unlocked, starting from begining");
-            PlayerPrefsManager.SetHasPlayed();
+            Debug.Log("No levels unlocked, starting from begining");            
             LoadLevel("02_Level_01");
         }
 

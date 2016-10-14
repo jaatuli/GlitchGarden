@@ -10,9 +10,7 @@ public class AttackerSpawner : MonoBehaviour {
     [Range(0f,1f)]
     public float startSpawnModifier = 0.2f;
     public float levelSpawnDelay = 5f;
-   
     public float levelProgression;
-
     public float timeToSpawn;
     private GameTimer gameTimer;
 

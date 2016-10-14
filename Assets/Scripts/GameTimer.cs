@@ -7,7 +7,9 @@ using System.Collections.Generic;
 public class GameTimer : MonoBehaviour {
 
     public float levelSeconds = 120;
+    public bool timerEnabled;
 
+    private float gameTime;
     private GameObject winLabel;
     private Slider slider;
     private AudioSource audioSource;
@@ -24,19 +26,24 @@ public class GameTimer : MonoBehaviour {
 
         winLabel = GameObject.Find("WinCanvas");
 
-        winLabel.SetActive(false);     
+        winLabel.SetActive(false);
+        gameTime = 0f;     
         
     }
 	// Update is called once per frame
 	void Update () {
 
-        slider.value = GetLevelProgression();
+        if (timerEnabled) {
+            slider.value = GetLevelProgression();
 
-        if (Time.timeSinceLevelLoad >= levelSeconds && !isEndOfLevel) {
+            gameTime += Time.deltaTime;
 
-            HandleWinCondition();
-            Analytic.LevelEndAnalytics(true);
+            if (gameTime >= levelSeconds && !isEndOfLevel) {
 
+                HandleWinCondition();
+                Analytic.LevelEndAnalytics(true);
+
+            }
         }
         	
 	}
@@ -59,7 +66,7 @@ public class GameTimer : MonoBehaviour {
     }
 
     void DestroyAllGameObjects() {
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("destroyOnWin");
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("gameActors");
         AttackerSpawner spawner = GameObject.FindObjectOfType<AttackerSpawner>();
 
         spawner.gameObject.SetActive(false);
@@ -70,7 +77,8 @@ public class GameTimer : MonoBehaviour {
     }
 
     public float GetLevelProgression() {
-        return Time.timeSinceLevelLoad / levelSeconds;
+
+        return gameTime / levelSeconds;
     }
 
     void LoadNextLevel() {

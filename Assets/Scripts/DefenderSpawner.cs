@@ -4,6 +4,7 @@ using System.Collections;
 public class DefenderSpawner : MonoBehaviour {
 
     public Camera myCamera;
+    public bool spawningEnabled;
 
     private GameObject defenderParent;
     private StarDisplay starDisplay;
@@ -29,22 +30,26 @@ public class DefenderSpawner : MonoBehaviour {
         Vector2 rawPos = CalculateWorldPointOfClick();
         Vector2 gridPos = SnapToGrid(rawPos);
 
-        Debug.Log("Click position: " + rawPos);
-        
-        if (DefenderSpawn.selectedDefender) {
+        //Debug.Log("Click position: " + rawPos);
+        if (spawningEnabled) {
+            if (DefenderSpawn.selectedDefender && spawningEnabled) {
 
-            int currentDefenderCost = DefenderSpawn.selectedDefender.GetComponent<Defender>().starCost;
+                int currentDefenderCost = DefenderSpawn.selectedDefender.GetComponent<Defender>().starCost;
 
-            if (starDisplay.UseStars(currentDefenderCost)) {
-                Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform);
-                spawnSound.Play();
-            } else {
-                Debug.Log("Not enough stars!");
+                if (starDisplay.UseStars(currentDefenderCost)) {
+                    Instantiate(DefenderSpawn.selectedDefender, gridPos, Quaternion.identity, defenderParent.transform);
+                    spawnSound.Play();
+                }
+                else {
+                    Debug.Log("Not enough stars!");
+                }
+            }
+            else {
+                Debug.Log("Select defender to spawn");
             }
         } else {
-            Debug.Log("Select defender to spawn");
+            Debug.Log("Spawning disabled!");
         }
-
     }
 
     Vector2 SnapToGrid (Vector2 rawWorldPos) {

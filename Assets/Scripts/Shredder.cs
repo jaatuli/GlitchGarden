@@ -5,7 +5,9 @@ public class Shredder : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D collider)
     {
-        Destroy(collider.gameObject);
+        if (collider.gameObject.GetComponent<Projectile>()) {
+            Destroy(collider.gameObject);
+        }
     }
 
 }
